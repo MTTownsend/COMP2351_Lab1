@@ -13,10 +13,16 @@ namespace COMP2351_Lab1
         SpriteBatch spriteBatch;
         public static int ScreenWidth;
         public static int ScreenHeight;
+        public Texture2D paddle;
+        public Vector2 paddleLocn;
+        public Texture2D ball;
+        public Vector2 ballLocn;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 900;
+            graphics.PreferredBackBufferWidth = 1600;
             Content.RootDirectory = "Content";
         }
 
@@ -42,7 +48,10 @@ namespace COMP2351_Lab1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            paddle = Content.Load<Texture2D>("paddle");
+            ball = Content.Load<Texture2D>("square");
+            ballLocn.X = ScreenHeight / 2;
+            ballLocn.Y = ScreenWidth / 2;
             // TODO: use this.Content to load your game content here
         }
 
@@ -80,7 +89,10 @@ namespace COMP2351_Lab1
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+                spriteBatch.Draw(paddle, paddleLocn, Color.AntiqueWhite);
+                spriteBatch.Draw(ball, ballLocn, Color.AntiqueWhite);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
