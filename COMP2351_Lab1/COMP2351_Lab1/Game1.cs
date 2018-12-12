@@ -14,11 +14,9 @@ namespace COMP2351_Lab1
         SpriteBatch spriteBatch;
         public static int ScreenWidth;
         public static int ScreenHeight;
-        public Texture2D paddle;
-        public Vector2 paddleLocn;
-        public Texture2D ball;
-        public Vector2 ballLocn;
-        public float mMoveDirection;         // Direction the ball is moving (1: right; -1: left).
+        PongEntity ball1;
+        PongEntity paddle1;
+        PongEntity paddle2;
         public float mSpeed;
         public Random rng = new Random();
         public Vector2 Angle;
@@ -44,7 +42,9 @@ namespace COMP2351_Lab1
             // TODO: Add your initialization logic here
             ScreenHeight = GraphicsDevice.Viewport.Height;
             ScreenWidth = GraphicsDevice.Viewport.Width;
-            mMoveDirection = 1;
+            ball1 = new ball();
+            paddle1 = new paddle();
+            paddle2 = new paddle();
             mSpeed = 3;
             Angle = new Vector2((float)rng.NextDouble()*360, (float)rng.NextDouble() * 360);
             base.Initialize();
@@ -58,11 +58,17 @@ namespace COMP2351_Lab1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            paddle = Content.Load<Texture2D>("paddle");
-            ball = Content.Load<Texture2D>("square");
-            ballLocn.X = ScreenWidth / 2;
-            ballLocn.Y = ScreenHeight / 2;
+
             // TODO: use this.Content to load your game content here
+            paddle1._texture = Content.Load<Texture2D>("paddle");
+            paddle1._location.X = 0;
+            paddle1._location.Y = (Game1.ScreenHeight / 2) - paddle1._texture.Height / 2;
+            paddle2._texture = Content.Load<Texture2D>("paddle");
+            paddle2._location.X = Game1.ScreenWidth - paddle2._texture.Width;
+            paddle2._location.Y = (Game1.ScreenHeight / 2) - paddle2._texture.Height / 2;
+            ball1._texture = Content.Load<Texture2D>("square");
+            ball1._location.X = (Game1.ScreenWidth / 2) - ball1._texture.Width / 2;
+            ball1._location.Y = (Game1.ScreenHeight / 2) - ball1._texture.Height / 2;
         }
 
         /// <summary>
@@ -88,17 +94,17 @@ namespace COMP2351_Lab1
             ScreenHeight = GraphicsDevice.Viewport.Height;
             ScreenWidth = GraphicsDevice.Viewport.Width;
             
-            if(bounce < 4)
+            if(bounce < 3)
             {
                 Direction = Vector2.Normalize(Angle);
-                ballLocn = ballLocn + mSpeed * Direction;
-                if (ballLocn.X > ScreenWidth || ballLocn.X < 0)
+                ball1._location = ball1._location + mSpeed * Direction;
+                if (ball1._location.X > ScreenWidth - ball1._texture.Width || ball1._location.X < 0)
                 {
                     Angle.X *= -1;
                     bounce++;
                     mSpeed += 3;
                 }
-                if (ballLocn.Y > ScreenHeight || ballLocn.Y < 0)
+                if (ball1._location.Y > ScreenHeight - ball1._texture.Height || ball1._location.Y < 0)
                 {
                     Angle.Y *= -1;
                     bounce++;
@@ -118,8 +124,9 @@ namespace COMP2351_Lab1
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-                spriteBatch.Draw(paddle, paddleLocn, Color.AntiqueWhite);
-                spriteBatch.Draw(ball, ballLocn, Color.AntiqueWhite);
+                ball1.Draw(spriteBatch);
+                paddle1.Draw(spriteBatch);
+                paddle2.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
