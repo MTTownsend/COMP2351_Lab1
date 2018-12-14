@@ -9,20 +9,31 @@ using Microsoft.Xna.Framework.Input;
 
 namespace COMP2351_Lab1
 {
-    abstract class PongEntity:Game
+    abstract class PongEntity
     {
         public Vector2 _location;
-        //protected float _mSpeed;
+        public float _mSpeed;
         public Texture2D _texture;
+
+        
         public PongEntity()
         {
             
         }
 
-
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, _location, Color.AntiqueWhite);
+        }
+
+        public virtual void Update()
+        {
+
+        }
+
+        public virtual void Update(Vector2 velocity)
+        {
+
         }
     }
 }

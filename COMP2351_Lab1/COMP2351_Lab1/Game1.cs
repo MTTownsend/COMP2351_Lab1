@@ -17,11 +17,9 @@ namespace COMP2351_Lab1
         PongEntity ball1;
         PongEntity paddle1;
         PongEntity paddle2;
-        public float mSpeed;
-        public Random rng = new Random();
-        public Vector2 Angle;
-        Vector2 Direction;
-        public int bounce = 0;
+        Input KeyInput; 
+        
+        
 
         public Game1()
         {
@@ -45,8 +43,8 @@ namespace COMP2351_Lab1
             ball1 = new ball();
             paddle1 = new paddle();
             paddle2 = new paddle();
-            mSpeed = 3;
-            Angle = new Vector2((float)rng.NextDouble()*360, (float)rng.NextDouble() * 360);
+            KeyInput = new Input(ball1, paddle1, paddle2);
+                    
             base.Initialize();
         }
 
@@ -93,24 +91,12 @@ namespace COMP2351_Lab1
             // TODO: Add your update logic here
             ScreenHeight = GraphicsDevice.Viewport.Height;
             ScreenWidth = GraphicsDevice.Viewport.Width;
+            Vector2 _p1Velocity = Input.GetKeyboardInputDirection(PlayerIndex.One);
+            Vector2 _p2Velocity = Input.GetKeyboardInputDirection(PlayerIndex.Two);
             
-            if(bounce < 3)
-            {
-                Direction = Vector2.Normalize(Angle);
-                ball1._location = ball1._location + mSpeed * Direction;
-                if (ball1._location.X > ScreenWidth - ball1._texture.Width || ball1._location.X < 0)
-                {
-                    Angle.X *= -1;
-                    bounce++;
-                    mSpeed += 3;
-                }
-                if (ball1._location.Y > ScreenHeight - ball1._texture.Height || ball1._location.Y < 0)
-                {
-                    Angle.Y *= -1;
-                    bounce++;
-                    mSpeed += 3;
-                }
-            }
+            ball1.Update();
+            paddle1.Update(_p1Velocity);
+            paddle2.Update(_p2Velocity);
             base.Update(gameTime);
         }
 
