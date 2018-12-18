@@ -11,14 +11,10 @@ namespace COMP2351_Lab1
 {
     class Input
     {
-        public PongEntity ball1Ref;
-        public PongEntity paddle1Ref;
-        public PongEntity paddle2Ref;
-        public Input(PongEntity ball1, PongEntity paddle1, PongEntity paddle2)
+        
+        public Input()
         {
-            ball1Ref = ball1;
-            paddle1Ref = paddle1;
-            paddle2Ref = paddle2;
+            
         }
 
         public static Vector2 GetKeyboardInputDirection(PlayerIndex _player)

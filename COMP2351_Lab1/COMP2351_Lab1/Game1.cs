@@ -43,7 +43,7 @@ namespace COMP2351_Lab1
             ball1 = new ball();
             paddle1 = new paddle();
             paddle2 = new paddle();
-            KeyInput = new Input(ball1, paddle1, paddle2);
+            KeyInput = new Input();
                     
             base.Initialize();
         }
