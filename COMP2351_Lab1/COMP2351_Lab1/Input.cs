@@ -23,33 +23,36 @@ namespace COMP2351_Lab1
 
         public static Vector2 GetKeyboardInputDirection(PlayerIndex _player)
         {
-            
+            Vector2 _rDirection;
+            _rDirection.X = 0;
+            _rDirection.Y = 0;
+
             KeyboardState keyboardState = Keyboard.GetState();
             if (_player == PlayerIndex.One)
             {
                 if (keyboardState.IsKeyDown(Keys.W))
                 {
-                    paddle1Ref._direction.Y = -3;
+                    _rDirection.Y = -3;
                 }
                 if (keyboardState.IsKeyDown(Keys.S))
                 {
-                    paddle1Ref._direction.Y = 3;
+                    _rDirection.Y = 3;
                 }
-                return paddle1Ref._direction;
+                
             }
             if (_player == PlayerIndex.Two)
             {
                 if (keyboardState.IsKeyDown(Keys.Up))
                 {
-                    paddle2Ref._direction.Y = -3;
+                    _rDirection.Y = -3;
                 }
                 if (keyboardState.IsKeyDown(Keys.Down))
                 {
-                    paddle2Ref._direction.Y = 3;
+                    _rDirection.Y = 3;
                 }
-                return paddle2Ref._direction;
+                
             }
-            return;
+            return _rDirection;
         }
     }
 }
