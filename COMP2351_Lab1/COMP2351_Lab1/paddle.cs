@@ -11,13 +11,9 @@ namespace COMP2351_Lab1
 {
     class paddle:PongEntity
     {
-
-        static Vector2 _direction;
-
         public paddle()
         {
-            _direction.X = 0;
-            _direction.Y = 0;
+
         }
 
         public override void Update(Vector2 velocity)
