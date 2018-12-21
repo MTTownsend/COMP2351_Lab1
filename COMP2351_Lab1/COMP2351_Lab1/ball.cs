@@ -9,43 +9,49 @@ using Microsoft.Xna.Framework.Input;
 
 namespace COMP2351_Lab1
 {
-    class ball:PongEntity
+    class ball : PongEntity
     {
-        private Vector2 Angle;
-        private Vector2 Direction;
-        private int bounce = 0;
-        private Random rng = new Random();
+
+        private Random random;
         public ball()
         {
-            _mSpeed = 3;
-            Angle = new Vector2((float)rng.NextDouble() * 360, (float)rng.NextDouble() * 360);
+            random = new Random();
+            _mSpeed = 8;      
         }
 
-         public void CheckWallCollision()
+        public void CheckWallCollision()
         {
             if (this._location.X > Game1.ScreenWidth - this._texture.Width || this._location.X < 0)
             {
-                Angle.X *= -1;
-                bounce++;
-                _mSpeed += 3;
+                _velocity.X *= -1;
             }
             if (this._location.Y > Game1.ScreenHeight - this._texture.Height || this._location.Y < 0)
             {
-                Angle.Y *= -1;
-                bounce++;
-                _mSpeed += 3;
+                _velocity.Y *= -1;  
             }
-        }
+        }
+
+        public void Serve()
+        {
+            _location.X = Game1.ScreenWidth/2 - _texture.Width/2;
+            _location.Y = Game1.ScreenHeight/2 - _texture.Height/2;
+            float rotation = (float)(Math.PI / 2 + (random.NextDouble() * (Math.PI / 1.5f) - Math.PI / 3));
+            _velocity.X = (float)Math.Sin(rotation);
+            _velocity.Y = (float)Math.Cos(rotation);
+
+            if (random.Next(1, 3) == 2)
+            {
+                _velocity.X *= -1;
+            }
+
+            _velocity *= _mSpeed;
+        }
+        
 
         public override void Update()
         {
-            if (bounce < 3)
-            {
-                Direction = Vector2.Normalize(Angle);
-                this._location = this._location + _mSpeed * Direction;
-                CheckWallCollision();
-            }
+            _location += _velocity;
+            CheckWallCollision();
         }
     }
-
 }

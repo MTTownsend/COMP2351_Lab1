@@ -59,14 +59,12 @@ namespace COMP2351_Lab1
 
             // TODO: use this.Content to load your game content here
             paddle1._texture = Content.Load<Texture2D>("paddle");
-            paddle1._location.X = 0;
-            paddle1._location.Y = (Game1.ScreenHeight / 2) - paddle1._texture.Height / 2;
+            paddle1.SetLocation(0, (Game1.ScreenHeight / 2) - paddle1._texture.Height / 2);
             paddle2._texture = Content.Load<Texture2D>("paddle");
-            paddle2._location.X = Game1.ScreenWidth - paddle2._texture.Width;
-            paddle2._location.Y = (Game1.ScreenHeight / 2) - paddle2._texture.Height / 2;
+            paddle2.SetLocation(Game1.ScreenWidth - paddle2._texture.Width, (Game1.ScreenHeight / 2) - paddle2._texture.Height / 2);
             ball1._texture = Content.Load<Texture2D>("square");
-            ball1._location.X = (Game1.ScreenWidth / 2) - ball1._texture.Width / 2;
-            ball1._location.Y = (Game1.ScreenHeight / 2) - ball1._texture.Height / 2;
+            ball bBall1 = (ball)ball1;
+            bBall1.Serve();
         }
 
         /// <summary>
@@ -97,6 +95,10 @@ namespace COMP2351_Lab1
             ball1.Update();
             paddle1.Update(_p1Velocity);
             paddle2.Update(_p2Velocity);
+            if (PongEntity.CheckPaddleBallCollision(paddle1, ball1) == true || PongEntity.CheckPaddleBallCollision(paddle2, ball1) == true)
+            {
+                ball1.InvertVelocityX();
+            }
             base.Update(gameTime);
         }
 

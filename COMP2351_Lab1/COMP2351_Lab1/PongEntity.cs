@@ -11,8 +11,9 @@ namespace COMP2351_Lab1
 {
     abstract class PongEntity
     {
-        public Vector2 _location;
-        public float _mSpeed;
+        protected Vector2 _location;
+        protected float _mSpeed;
+        protected Vector2 _velocity;
         public Texture2D _texture;
 
         
@@ -34,6 +35,51 @@ namespace COMP2351_Lab1
         public virtual void Update(Vector2 velocity)
         {
 
+        }
+
+        public int GetLocX()
+        {
+            return (int)_location.X;
+        }
+
+        public int GetLocY()
+        {
+            return (int)_location.Y;
+        }
+
+        public void SetLocation(float xPos, float yPos)
+        {
+            _location.X = xPos;
+            _location.Y = yPos;
+        }
+
+        public Rectangle Hitbox
+        {
+            get
+            {
+                Rectangle _hitBox = new Rectangle(GetLocX(), GetLocY(), _texture.Width, _texture.Height);
+                return _hitBox;
+            }  
+        }
+
+        public static bool CheckPaddleBallCollision(PongEntity pPaddle, PongEntity pBall)
+        {
+            bool _collision;
+
+            if (pPaddle.Hitbox.Intersects(pBall.Hitbox))
+            {
+                _collision = true;
+            }
+            else
+            {
+                _collision = false;
+            }
+            return _collision;
+        }
+
+        public void InvertVelocityX()
+        {
+            _velocity.X *= -1;
         }
     }
 }
