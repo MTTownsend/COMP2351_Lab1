@@ -9,14 +9,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace COMP2351_Lab1
 {
-    abstract class PongEntity
+    abstract class PongEntity:Entity
     {
         protected Vector2 _location;
         protected float _mSpeed;
         protected Vector2 _velocity;
-        public Texture2D _texture;
+        protected Texture2D _texture;
 
-        
+
         public PongEntity()
         {
             
@@ -25,11 +25,6 @@ namespace COMP2351_Lab1
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, _location, Color.AntiqueWhite);
-        }
-
-        public virtual void Update()
-        {
-
         }
 
         public virtual void Update(Vector2 velocity)
@@ -51,6 +46,16 @@ namespace COMP2351_Lab1
         {
             _location.X = xPos;
             _location.Y = yPos;
+        }
+
+        public void SetTexture(Texture2D texture)
+        {
+            _texture = texture;
+        }
+
+        public Texture2D GetTexture()
+        {
+            return _texture;
         }
 
         public Rectangle Hitbox
@@ -80,6 +85,11 @@ namespace COMP2351_Lab1
         public void InvertVelocityX()
         {
             _velocity.X *= -1;
+        }
+
+        public void InvertVelocityY()
+        {
+            _velocity.Y *= -1;
         }
     }
 }

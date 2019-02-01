@@ -17,9 +17,8 @@ namespace COMP2351_Lab1
         PongEntity ball1;
         PongEntity paddle1;
         PongEntity paddle2;
-        Input KeyInput; 
-        
-        
+        Input KeyInput;
+
 
         public Game1()
         {
@@ -44,7 +43,7 @@ namespace COMP2351_Lab1
             paddle1 = new paddle();
             paddle2 = new paddle();
             KeyInput = new Input();
-                    
+
             base.Initialize();
         }
 
@@ -58,11 +57,11 @@ namespace COMP2351_Lab1
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            paddle1._texture = Content.Load<Texture2D>("paddle");
-            paddle1.SetLocation(0, (Game1.ScreenHeight / 2) - paddle1._texture.Height / 2);
-            paddle2._texture = Content.Load<Texture2D>("paddle");
-            paddle2.SetLocation(Game1.ScreenWidth - paddle2._texture.Width, (Game1.ScreenHeight / 2) - paddle2._texture.Height / 2);
-            ball1._texture = Content.Load<Texture2D>("square");
+            paddle1.SetTexture(Content.Load<Texture2D>("paddle"));
+            paddle1.SetLocation(0, (Game1.ScreenHeight / 2) - paddle1.GetTexture().Height / 2);
+            paddle2.SetTexture(Content.Load<Texture2D>("paddle"));
+            paddle2.SetLocation(Game1.ScreenWidth - paddle2.GetTexture().Width, (Game1.ScreenHeight / 2) - paddle2.GetTexture().Height / 2);
+            ball1.SetTexture(Content.Load<Texture2D>("square"));
             ball bBall1 = (ball)ball1;
             bBall1.Serve();
         }
